@@ -8,6 +8,8 @@ TagManager:
   - Fodder
   - Bomber
   - Projectile
+  - Score
+  - Points
   layers:
   - Default
   - TransparentFX

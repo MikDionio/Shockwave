@@ -6,11 +6,13 @@ public class Bomber : Enemy {
 
     public GameObject Explosion;
     private GameObject ExplosionInstance;
+    private GameObject Score;
 
     private void Start()
     {
         ExplosionInstance = Instantiate(Explosion, this.transform);
         ExplosionInstance.SetActive(false);
+        Score = GameObject.FindGameObjectWithTag("Score");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -25,7 +27,7 @@ public class Bomber : Enemy {
     new void Destroy()
     {
         StartCoroutine(ExplodeOnDie());
-        
+        Score.GetComponent<Score>().updateScore(value);
     }
 
     IEnumerator ExplodeOnDie()

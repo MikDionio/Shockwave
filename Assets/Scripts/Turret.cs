@@ -80,9 +80,21 @@ public class Turret : MonoBehaviour, Destroyable {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Fodder") || collision.gameObject.CompareTag("Bomber"))
+        if(collision.gameObject.CompareTag("Fodder") || collision.gameObject.CompareTag("Bomber"))//if collide with enemy, subtract hp, check if dead
         {
-            Destroy();
+            hp = hp - 1;
+            if(hp <= 0)
+            {
+                Destroy();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Points"))
+        {
+            collision.GetComponent<Points>().onPick();
         }
     }
 }

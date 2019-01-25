@@ -16,8 +16,3 @@ public interface Movable
 {
     void move();
 }
-
-public interface Knockbackable
-{
-    void knockbacked();
-}
