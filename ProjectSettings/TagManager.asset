@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - Score
   - Points
+  - Explosion
   layers:
   - Default
   - TransparentFX

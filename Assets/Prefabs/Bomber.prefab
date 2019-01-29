@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   value: 5
-  Explosion: {fileID: 1186436167883566, guid: a651a8ca2ba5ae648b8c18f0828f40c9, type: 2}
+  Explosion: {fileID: 1514441534370528, guid: c2a6727959330804e894ad5e443daaf6, type: 2}
 --- !u!212 &212420042039089000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -10,8 +10,6 @@ public class Bomber : Enemy {
 
     private void Start()
     {
-        ExplosionInstance = Instantiate(Explosion, this.transform);
-        ExplosionInstance.SetActive(false);
         Score = GameObject.FindGameObjectWithTag("Score");
     }
 
@@ -26,14 +24,17 @@ public class Bomber : Enemy {
 
     new void Destroy()
     {
-        StartCoroutine(ExplodeOnDie());
+        //Update Score
         Score.GetComponent<Score>().updateScore(value);
-    }
 
-    IEnumerator ExplodeOnDie()
-    {
-        StartCoroutine(ExplosionInstance.GetComponent<Explosion>().Explode());
-        yield return new WaitForSeconds(0.1f);
+        //Explode
+        if(ExplosionInstance == null)
+        {
+            ExplosionInstance = Instantiate(Explosion, this.transform.position, Quaternion.identity);
+            ExplosionInstance.SetActive(false);
+        }
+
+        ExplosionInstance.GetComponent<ExplosionEffect>().Explode();
         this.gameObject.SetActive(false);
     }
 }

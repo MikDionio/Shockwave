@@ -26,9 +26,13 @@ public class Enemy : MonoBehaviour, Destroyable, Movable {
     public void move()
     {
         GameObject Turret = GameObject.FindGameObjectWithTag("Turret");
-        Vector2 direction = new Vector2(Turret.transform.position.x - this.transform.position.x, Turret.transform.position.y - this.transform.position.y);
-        direction.Normalize();
-        transform.Translate(direction*moveSpeed*Time.deltaTime);
+
+        if(Turret != null)
+        {
+            Vector2 direction = new Vector2(Turret.transform.position.x - this.transform.position.x, Turret.transform.position.y - this.transform.position.y);
+            direction.Normalize();
+            transform.Translate(direction * moveSpeed * Time.deltaTime);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)//when something hits this
