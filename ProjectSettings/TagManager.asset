@@ -11,6 +11,7 @@ TagManager:
   - Score
   - Points
   - Explosion
+  - Lives
   layers:
   - Default
   - TransparentFX

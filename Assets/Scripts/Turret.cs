@@ -95,6 +95,11 @@ public class Turret : MonoBehaviour, Destroyable {
         if (collision.gameObject.CompareTag("Points"))
         {
             collision.GetComponent<Points>().onPick();
+            Debug.Log("points!");
+        }else if (collision.gameObject.CompareTag("Lives"))
+        {
+            collision.GetComponent<LifePickup>().onPick();
+            Debug.Log("lives!");
         }
     }
 }

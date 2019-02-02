@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Points : Pickup, Pickable {
     private GameObject Score;
-
+    private GameObject GameController;
     // Use this for initialization
     void Start()
     {
         Score = GameObject.FindGameObjectWithTag("Score");
+        GameController = GameObject.FindGameObjectWithTag("GameController");
     }
 
     // Update is called once per frame
@@ -22,5 +23,11 @@ public class Points : Pickup, Pickable {
         Score.GetComponent<Score>().updateScore(value);
         Destroy();
         Debug.Log("Scored!");
+    }
+
+    public void Destroy()
+    {
+        GameController.GetComponent<GameController>().spawnPickup();//spawn a new pickup
+        this.gameObject.SetActive(false);
     }
 }

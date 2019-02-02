@@ -8,17 +8,26 @@ public class GameController : MonoBehaviour {
     public List<GameObject> EnemySpawnPoints = new List<GameObject>();
 
     private List<GameObject> PooledEnemies = new List<GameObject>();
-    public GameObject ExplosionEffect;
+
+    public List<GameObject> PickupTypes = new List<GameObject>();
+    private List<GameObject> PooledPickups = new List<GameObject>();
 
     // Use this for initialization
     void Start() {
 
         //Pool enemy types
-        poolEnemies(12, EnemyTypes[0]);
-        poolEnemies(3, EnemyTypes[1]);
+        poolObject(12, EnemyTypes[0], PooledEnemies); //pool 12 fodders
+        poolObject(3, EnemyTypes[1], PooledEnemies);  //pool 3 Bombers
+
+        //Pool pickups
+        poolObject(5, PickupTypes[0], PooledPickups); //pool 5 10pts. pickups
+        poolObject(1, PickupTypes[1], PooledPickups); //pool 1 100pts. pickups
+        poolObject(2, PickupTypes[2], PooledPickups); //pool 2 Lives pickups
 
         //Enemy spawning
         InvokeRepeating("spawnEnemy", 0.01f, 0.5f);
+
+        spawnPickup();
     }
 
     // Update is called once per frame
@@ -26,17 +35,17 @@ public class GameController : MonoBehaviour {
         
     }
 
-    void poolEnemies(int poolAmount, GameObject EnemyType)
+    void poolObject(int poolAmount, GameObject ObjectType, List<GameObject> PooledObjects)//instantiate object instances, and then store them on a pool list
     { 
         for(int i = 0; i < poolAmount; i++)
         {
-            GameObject EnemyInstance = Instantiate(EnemyType, this.transform.position, this.transform.rotation, this.transform);
-            EnemyInstance.SetActive(false);
-            PooledEnemies.Add(EnemyInstance);
+            GameObject ObjectInstance = Instantiate(ObjectType, this.transform.position, this.transform.rotation, this.transform);
+            ObjectInstance.SetActive(false);
+            PooledObjects.Add(ObjectInstance);
         }
     }
 
-    void spawnEnemy()
+    void spawnEnemy()//spawns enemies outside the arena
     {
         int type = Random.Range(0, EnemyTypes.Count);
         int position = Random.Range(0, EnemySpawnPoints.Count);
@@ -51,6 +60,17 @@ public class GameController : MonoBehaviour {
             }
         }
 
+    }
+
+    public void spawnPickup()//spawns pickups in the arena
+    {
+        float xpos = Random.Range(-6.0f, 6.0f);
+        float ypos = Random.Range(-3.0f, 3.0f);
+        int pickup = Random.Range(0, PickupTypes.Count);
+
+        GameObject pickupInstance = PooledPickups[pickup];
+        pickupInstance.transform.position = new Vector2(xpos, ypos);
+        pickupInstance.SetActive(true);
     }
         
 }

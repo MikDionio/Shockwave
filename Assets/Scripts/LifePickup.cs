@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup : MonoBehaviour, Pickable, Destroyable {
+public class LifePickup : Pickup, Pickable {
 
-    public int value;
+    private GameObject LivesCount;
     private GameObject GameController;
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
+        LivesCount = GameObject.FindGameObjectWithTag("Lives");
         GameController = GameObject.FindGameObjectWithTag("GameController");
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
-    public void onPick()//what happens when this item is picked up?
+    void OnPick()
     {
-        
+        LivesCount.GetComponent<LivesCount>().addLife();
+        Destroy();
     }
 
     public void Destroy()
